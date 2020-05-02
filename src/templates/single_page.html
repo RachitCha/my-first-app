@@ -1,0 +1,270 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>नर्मदा जगत</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href='{% static "css/bootstrap.min.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/font-awesome.min.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/animate.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/font.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/li-scroller.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/slick.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/jquery.fancybox.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/theme.css" %}'>
+<link rel="stylesheet" type="text/css" href='{% static "css/style.css" %}'>
+<!--[if lt IE 9]>
+<script src="../assets/js/html5shiv.min.js"></script>
+<script src="../assets/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
+<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="container">
+  <header id="header">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="header_top">
+          <div class="header_top_left">
+            <ul class="top_nav">
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li><a href="{% url 'page' %}">About</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+          </div>
+          <div class="header_top_right">
+            <p>{{mydate|date:'l,F d,Y'}}&nbsp;&nbsp;{{mydate|date:'H:i:s'}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="header_bottom">
+          <div class="logo_area"><a href="{% url 'index' %}" class="logo">Narmada Jagat</a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section id="navArea">
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav main_nav">
+          <li class="active"><a href="{% url 'index' %}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+          <li><a href="{% url 'national' %}">देश-विदेश</a></li>
+          <li><a href="{% url 'state' %}">राज्य</a></li>
+          <li><a href="{% url 'district' %}">नर्मदापुरम</a></li>
+          <li><a href="{% url 'city' %}">मेरा शहर</a></li>
+          <li><a href="{% url 'contact' %}">सम्पर्क सूत्र</a></li>
+        </ul>
+      </div>
+    </nav>
+  </section>
+  <section id="newsSection">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="latest_newsarea"> <span>टॉप न्यूज़</span>
+          <ul id="ticker01" class="news_sticker">
+            {% for event in topnews_all %}
+            <li><a href="#"><img src='{% static "images/breaking.jpg" %}' alt="">{{event.news_heading}}</a></li>
+            {% endfor %}
+          </ul>
+          <div class="social_area">
+            <ul class="social_nav">
+              <li class="facebook"><a href="#"></a></li>
+              <li class="twitter"><a href="#"></a></li>
+              <li class="googleplus"><a href="#"></a></li>
+              <li class="youtube"><a href="#"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="single_page">
+            <ol class="breadcrumb">
+              <li><a href="{% url 'index' %}">होम</a></li>
+              <li><a href="{% url 'national' %}">देश-विदेश</a></li>
+            </ol>
+            <h1>{{national_news.news_heading}}</h1>
+            <div class="post_commentbox"> <!--<a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>6:49 AM</span>--> <a href="{% url 'national' %}"><i class="fa fa-tags"></i>देश-विदेश</a> </div>
+            <div class="single_page_content">
+              
+              {% if national_news.news_subheading %}	
+              <h4 style="white-space: pre-wrap; color: cadetblue">{{national_news.news_subheading}}</h4><br>
+              {% endif %}
+
+              {% if national_news.news_photo %}
+              <img class="img-center" src="{{national_news.news_photo.url}}" alt="">
+              {% endif %}
+
+              {% if national_news.news_video %}
+              <video class="video-centre" controls>
+                <source src="{{national_news.news_video.url}}" type="">
+                  Your Browser Doesn't Support Videos
+              </video>
+              {% endif %}
+
+              {% if national_news.news_paragraph_1 %}
+              <p style="white-space: pre-wrap;">{{national_news.news_paragraph_1}}</p>
+              {% endif %}
+
+              {% if national_news.designed_paragraph %}
+              <blockquote style="white-space: pre-wrap;">{{national_news.designed_paragraph}}</blockquote>
+              {% endif %}
+
+              {% if national_news.news_paragraph_2 %}
+              <p style="white-space: pre-wrap;">{{national_news.news_paragraph_2}}</p>
+              {% endif %}
+
+              {% if national_news.news_paragraph_3 %}
+              <p style="white-space: pre-wrap;">{{national_news.news_paragraph_3}}</p>
+              {% endif %}
+
+            </div>
+
+            <div class="social_link">
+              <ul class="sociallink_nav">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+              </ul>
+            </div>
+            <!--<div class="related_post">
+              <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
+              <ul class="spost_nav wow fadeInDown animated">
+                {% for i in '4'%}
+                {% for nationalsection in nationalsection_all %}
+                <li>
+                  <div class="media">
+                    {% if nationalsection.news_photo %}
+                    <a class="media-left" href="{% url 'single_page' nationalsection.id %}"> <img src="{{nationalsection.news_photo.url}}" alt=""> </a>
+                    {% endif %}
+                    <div class="media-body"> <a class="catg_title" href="{% url 'single_page' nationalsection.id %}"> {{nationalsection.news_heading}}</a> </div>
+                  </div>
+                </li>
+                {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="latest_post">
+          <h2><span>मुख्य खबरें</span></h2>
+          <div class="latest_post_container" style="overflow: hidden">
+            <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+            <ul class="latest_postnav">
+              {% for nationalnews in nationalmain_all %}
+              <li>
+                <div class="media"> 
+                  {% if nationalnews.news_photo %}
+                  <a href="{% url 'single_page' nationalnews.id %}" class="media-left"> <img alt="" src="{{nationalnews.news_photo.url}}"> </a>
+                  {% endif %}
+                  <div class="media-body"> <a href="{% url 'single_page' nationalnews.id %}" class="catg_title"> {{nationalnews.news_heading}}</a> </div>
+                </div>
+              </li>
+              {% endfor %}
+              
+              {% for statenews in statemain_all %}
+              <li>
+                <div class="media"> 
+                  {% if statenews.news_photo %}
+                  <a href="{% url 'single_page1' statenews.id %}" class="media-left"> <img alt="" src="{{statenews.news_photo.url}}"> </a>
+                  {% endif %}
+                  <div class="media-body"> <a href="{% url 'single_page1' statenews.id %}" class="catg_title">{{statenews.news_heading}}</a> </div>
+                </div>
+              </li>
+              {% endfor %}
+
+              {% for districtnews in districtmain_all %}
+              <li>
+                <div class="media">
+                  {% if districtnews.news_photo %}
+                  <a href="{% url 'single_page2' districtnews.id %}" class="media-left"> <img alt="" src="{{districtnews.news_photo.url}}"> </a>
+                  {% endif %}
+                  <div class="media-body"> <a href="{% url 'single_page2' districtnews.id %}" class="catg_title"> {{districtnews.news_heading}}</a> </div>
+                </div>
+              </li>
+              {% endfor %}
+
+              {% for citynews in citymain_all %}
+              <li>
+                <div class="media">
+                  {% if citynews.news_photo %}
+                  <a href="{% url 'single_page3' citynews.id %}" class="media-left"> <img alt="" src="{{citynews.news_photo.url}}"> </a>
+                  {% endif %}
+                  <div class="media-body"> <a href="{% url 'single_page3' citynews.id %}" class="catg_title"> {{citynews.news_heading}}</a> </div>
+                </div>
+              </li>
+              {% endfor %}
+
+            </ul>
+            <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <div class="footer_top">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInLeftBig">
+            <h2>Flickr Images</h2>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInDown">
+            <h2>Tag</h2>
+            <ul class="tag_nav">
+              <li><a href="{% url 'national' %}">National News</a></li>
+              <li><a href="{% url 'state' %}">State News</a></li>
+              <li><a href="{% url 'district' %}">District News</a></li>
+              <li><a href="{% url 'city' %}">City News</a></li>
+              <li><a href="{% url 'national' %}">International News</a></li>
+              <li><a href="{% url 'page' %}">About Us</a></li>
+              <li><a href="{% url 'contact' %}">Contact Details</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="footer_widget wow fadeInRightBig">
+            <h2>Contact</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <address>
+            Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer_bottom">
+      <p class="copyright"><a href="{% url 'index' %}">Narmada Jagat</a></p>
+      <p class="developer">Developed By Rachit Chandrayan</p>
+    </div>
+  </footer>
+</div>
+<script src='{% static "js/jquery.min.js" %}'></script> 
+<script src='{% static "js/wow.min.js" %}'></script> 
+<script src='{% static "js/bootstrap.min.js" %}'></script> 
+<script src='{% static "js/slick.min.js" %}'></script> 
+<script src='{% static "js/jquery.li-scroller.1.0.js" %}'></script> 
+<script src='{% static "js/jquery.newsTicker.min.js" %}'></script> 
+<script src='{% static "js/jquery.fancybox.pack.js" %}'></script> 
+<script src='{% static "js/custom.js" %}'></script>
+</body>
+</html>
